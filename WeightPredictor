@@ -1,0 +1,103 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Wed May 13 12:11:19 2020
+
+@author: rahul.sailwal
+"""
+
+#importing libraries
+from tkinter import *
+import pandas as pd
+from tkinter import messagebox
+
+#this is function will calculate using least square method
+def WeightPredictor():
+    #validation if value is blank
+    if htxt.get()=="":
+        messagebox.showinfo(title="validation",message="You have not entered height")
+        exit()
+    
+    #accepting value from user  
+    h=float(htxt.get())# = float(input("Please enter height to determine (Eg - 5.1):"))
+    
+    #open csv file to read data in numpy object
+    df = pd.read_csv('dat.csv')
+
+    df['x2'] = df['X'] ** 2
+    df['y2'] = df['Y'] ** 2
+    df['xy'] = df['X'] * df['Y']
+
+    # this is the formula we have to achieve -> y=mx+b
+
+    # below section is used to find value 'm'
+
+    sigmaX = df['X'].sum()
+    sigmaY = df['Y'].sum()
+    sigmaXY = df['xy'].sum()
+    sigmaX2 = df['x2'].sum()
+    sigmaY2 = df['y2'].sum()
+
+    # print(sigmaX,sigmaY,sigmaXY,sigmaX2,sigmaY2)
+    r, c = df.shape
+
+    # print(r)
+
+    n = (r * (sigmaXY)) - (sigmaX * sigmaY)
+    d = r * (sigmaX2) - (sigmaX ** 2)
+
+    Coefficient_M = n / d
+    # print(Coefficient_M)
+    b = ((sigmaY) - (Coefficient_M * (sigmaX))) / r
+
+    # print('\n\n',Coefficient_M,b)
+
+
+    w = round((Coefficient_M * h) + b, 2)
+    wtxt.set(w)
+
+    res=messagebox.askyesno(title="Database",message="Would you like to feed this predicition in data")
+    print('response',res)
+    if res == True:
+        #  print(newrow)
+
+        ndf = df[['X', 'Y']]
+        ndf = ndf.append({'X': h, 'Y': w}, ignore_index=True)
+        # print(ndf)
+
+        ndf.to_csv('dat.csv', index=False)
+        #print('\nPredicted data has been feeded in the data successfully. Thank you.')
+        messagebox.showinfo(title="Updated",message="Predicted data has been feeded in the data successfully.")
+        htxt.set("")
+        wtxt.set("")
+
+    elif res == False:
+        #print('\nPredicted figure has not been added into the data.')
+        messagebox.showinfo(title="Not Updated",message="Predicted figure has not been added into the data.")
+
+    
+
+root = Tk()
+htxt=StringVar()
+wtxt=StringVar()
+
+#used tkinter forms to display
+
+root.title(string="Weight predictor")
+
+
+l1=Label(root,text="Please enter height :")
+l1.place(x=20,y=30)
+Htext=Entry(root,textvariable=htxt)
+Htext.place(x=135,y=35)
+
+l2=Label(root,text="Predicted Weight :")
+l2.place(x=20,y=110)
+
+Wtext=Entry(root,textvariable=wtxt)
+Wtext.place(x=135,y=115)
+
+bCheck=Button(root,text="Check",command=WeightPredictor)
+bCheck.place(x=215,y=70)
+
+root.geometry("300x200+120+120")
+root.mainloop()
