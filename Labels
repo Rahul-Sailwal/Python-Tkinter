@@ -1,0 +1,45 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sat May 16 12:09:09 2020
+
+@author: rahul.sailwal
+"""
+# importing library
+from tkinter import *
+
+#initialising object
+form = Tk()
+
+#In python controls are called widget
+#below code is to instantiate a label object - l1 is object, we can use any name
+#"text" is a member of class Label which we stting
+l1=Label(form,text="Rahul sailwal")
+l1.pack()
+
+
+#using another label, use text property to change caption of label
+l2=Label(text="India") 
+#pack() method is used to place widget(control) on the form - will explain more in future programs
+l2.pack()
+
+
+#trying other label properties , use configure method to change member value
+l1.configure(bg='green')
+
+#configure method can handle multiple arguments
+l2.configure(fg='red',relief=RAISED)
+
+#underline runs on index, if u mention 1 then it will be 2 character
+l1.configure(width=30,underline=0,padx=4)  
+
+#other properties will use in future program
+
+
+
+#-------------------------below code is the remaining code to enable form n geometry
+
+#define geometry
+form.geometry("400x300")
+
+#infinite loop to view form
+form.mainloop()
