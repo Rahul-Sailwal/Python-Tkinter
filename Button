@@ -1,0 +1,32 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sat May 16 12:32:05 2020
+@author: rahul.sailwal
+"""
+
+#importing libraries
+from tkinter import *
+
+form=Tk()
+
+    #below line will instantiate button, if we dont use pack() then button will not be visible
+b=Button(form,text="Submit")
+b.pack()
+
+
+    #below code is instantiating setting up with different attributes
+    #bg = background,bd=bored,fg=foreground, 
+    
+bcancel=Button(form,height=2,width=10,text="Cancel",bg="green",fg="red",bd=5)
+bcancel.pack()
+
+
+  #below code to rename button text, configure() can be used to amend any data member value
+bcancel.configure(text="Quit")
+  
+  #this is to set different font for cancel button,alternative use can use font object will do later program
+bcancel.configure(font=("verdana", 12, "bold"))
+
+#------------------this is form geomety and loop code to make it visible
+form.geometry("300x200")
+form.mainloop()
