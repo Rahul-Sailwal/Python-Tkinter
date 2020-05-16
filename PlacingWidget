@@ -1,0 +1,22 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sat May 16 12:56:06 2020
+
+@author: rahul.sailwal
+"""
+
+#importing libraries
+
+from tkinter import *
+
+form=Tk()
+
+#use place method() to put widgets based on x & y coordinates
+b2=Button(form,text="Button 2")
+b2.place(x=55,y=85)
+
+b1=Button(form,text="Button 3")
+b1.place(x=55,y=45)
+
+form.geometry("300x200")
+form.mainloop()
