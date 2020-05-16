@@ -1,0 +1,37 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sat May 16 22:14:47 2020
+
+@author: rahul.sailwal
+"""
+
+from tkinter import *
+
+
+form=Tk()
+
+#StringVar() falls under tkinter class 
+s=StringVar()
+
+#to instantiate entry(textbox) object
+t1=Entry(form)
+t1.pack()
+
+
+t2=Entry(form)
+t2.pack()
+#customizing entry attributes
+
+s.set("rahul")
+
+#using test variable we can set values for entr object
+t1.configure(fg="red",textvariable=s)
+
+#Properties - background, alignment, * makes password character "" resume setting
+t2.configure(bg="gray",justify=RIGHT,show="*")
+
+
+
+
+form.geometry("300x200")
+form.mainloop()
