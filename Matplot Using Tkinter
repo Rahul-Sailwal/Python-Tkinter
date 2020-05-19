@@ -1,0 +1,49 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Tue May 19 15:23:42 2020
+@author: rahul.sailwal
+"""
+
+#------------ libraries
+import tkinter
+
+from matplotlib.backends.backend_tkagg import (
+    FigureCanvasTkAgg, NavigationToolbar2Tk)
+from matplotlib.figure import Figure
+import pandas as pd
+
+
+
+#-------form initialisation
+
+root = tkinter.Tk()
+root.wm_title("Graphical representation in form")
+
+
+#----------------setting sample data set & importing in panda data frame
+data1 = {'Country': ['US','CA','GER','UK','FR'],
+         'GDP_Per_Capita': [40,42,52,49,47]
+        }
+df1 = pd.DataFrame(data1,columns=['Country','GDP_Per_Capita'])
+
+
+# initialising Figure object
+fig = Figure(figsize=(5, 4), dpi=100)
+#t = np.arange(0, 3, .01)
+fig.add_subplot(111).plot(df1['Country'],df1['GDP_Per_Capita'])
+
+
+#--------------------create canvas to add graph in it
+canvas = FigureCanvasTkAgg(fig, master=root)  # A tk.DrawingArea.
+canvas.draw()
+canvas.get_tk_widget().pack(side=tkinter.TOP, fill=tkinter.BOTH, expand=1)
+
+
+#--------------to give navigation functionaity  - you can comments below 3 lines to see impact
+toolbar = NavigationToolbar2Tk(canvas, root)
+toolbar.update()
+canvas.get_tk_widget().pack(side=tkinter.TOP, fill=tkinter.BOTH, expand=1)
+
+
+
+tkinter.mainloop()
