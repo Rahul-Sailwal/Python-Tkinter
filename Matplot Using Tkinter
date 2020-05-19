@@ -22,15 +22,15 @@ root.wm_title("Graphical representation in form")
 
 #----------------setting sample data set & importing in panda data frame
 data1 = {'Country': ['US','CA','GER','UK','FR'],
-         'GDP_Per_Capita': [40,42,52,49,47]
+         'GDP': [40,42,52,49,47]
         }
-df1 = pd.DataFrame(data1,columns=['Country','GDP_Per_Capita'])
+df1 = pd.DataFrame(data1,columns=['Country','GDP'])
 
 
 # initialising Figure object
 fig = Figure(figsize=(5, 4), dpi=100)
 #t = np.arange(0, 3, .01)
-fig.add_subplot(111).plot(df1['Country'],df1['GDP_Per_Capita'])
+fig.add_subplot(111).plot(df1['Country'],df1['GDP'])
 
 
 #--------------------create canvas to add graph in it
