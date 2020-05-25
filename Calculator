@@ -1,0 +1,123 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Mon May 25 20:18:18 2020
+
+@author: rahul.sailwal
+"""
+
+#below are the library for tkinter
+from tkinter import *
+from tkinter.messagebox import *
+#need a global variable to keep storing expression values
+
+global operator
+operator=""
+
+#initialising form with disabling maximize button and renaming title bar
+Calc=Tk()
+Calc.resizable(0,0)
+Calc.title("Calculator")
+
+
+#-----------------functions to set calculation
+
+def center(win):
+#this function is to set window to center of the screen
+    win.update_idletasks()
+    width = win.winfo_width()
+    height = win.winfo_height()
+    x = (win.winfo_screenwidth() // 2) - (width // 2)
+    y = (win.winfo_screenheight() // 2) - (height // 2)
+    win.geometry('{}x{}+{}+{}'.format(width, height, x, y))
+    
+
+
+    
+
+def feedNum(n):
+#this funtion will capture number n operator from buttons    
+    global operator
+    
+    o=["+","-","*","/","."]
+    try:
+        
+        if n in o:
+            #it means it needs to check with expression
+            operator+str(n)
+            if operator[-1] in o:
+                operator-=str(n)
+                pass
+            else:
+                operator+=str(n)                
+                t_inp.set(operator)
+        else:
+            operator+=str(n)                
+            t_inp.set(operator)
+    except:
+        messagebox.showerror(title="Calculator",message="Not acceptable")
+         
+    
+def clearOutput():
+# this function is to clear the textbox 
+    global operator
+    operator=""
+    t_inp.set("")
+    
+def btnEqual():
+# this function is to do calculation- using eval(), we need not to write different +,-,/,*
+    global operator
+    try:
+        sumup=str(eval(operator))
+        t_inp.set(sumup)
+        operator=sumup
+    except:
+        messagebox.showerror(title="Calculator",message="Expression is not valid")
+
+#------------from here form designing started    
+t_inp=StringVar()
+
+
+#---------------top frame to hold textbox
+frame=Frame(Calc,borderwidth=10,highlightthickness=2,highlightbackground="black")
+frame.pack()
+
+#----------------text box to hold values
+tDisp=Entry(frame,bg="white",font="Arial,12,bold",bd=4,width=21,justify='right',textvariable=t_inp)
+tDisp.grid(columnspan=4)
+
+
+#----------frame to hold buttons
+frmButton=Frame(Calc,borderwidth=2,highlightthickness=1,highlightbackground="black")
+frmButton.pack()
+
+#-------------all the buttons used in the form
+btn7=Button(frmButton,padx=10,bd=8,text="7",font="Arial,10",command=lambda:feedNum("7")).grid(column=0,row=1)
+btn8=Button(frmButton,padx=10,bd=8,text="8",font="Arial,10",command=lambda:feedNum("8")).grid(column=1,row=1)
+btn9=Button(frmButton,padx=10,bd=8,text="9",font="Arial,10",command=lambda:feedNum("9")).grid(column=2,row=1)
+btnplus=Button(frmButton,padx=10,bd=8,text="+",font="Arial,10",command=lambda:feedNum("+")).grid(column=3,row=1)
+
+btn4=Button(frmButton,padx=10,bd=8,text="4",font="Arial,10",command=lambda:feedNum("4")).grid(column=0,row=2)
+btn5=Button(frmButton,padx=10,bd=8,text="5",font="Arial,10",command=lambda:feedNum("5")).grid(column=1,row=2)
+btn6=Button(frmButton,padx=10,bd=8,text="6",font="Arial,10",command=lambda:feedNum("6")).grid(column=2,row=2)
+btnminus=Button(frmButton,padx=10,bd=8,text="-",font="Arial,10",command=lambda:feedNum("-")).grid(column=3,row=2)
+
+btn1=Button(frmButton,padx=10,bd=8,text="1",font="Arial,10",command=lambda:feedNum("1")).grid(column=0,row=3)
+btn2=Button(frmButton,padx=10,bd=8,text="2",font="Arial,10",command=lambda:feedNum("2")).grid(column=1,row=3)
+btn3=Button(frmButton,padx=10,bd=8,text="3",font="Arial,10",command=lambda:feedNum("3")).grid(column=2,row=3)
+btnmult=Button(frmButton,padx=10,bd=8,text="*",font="Arial,10",command=lambda:feedNum("*")).grid(column=3,row=3)
+
+btn0=Button(frmButton,padx=10,bd=8,text="0",font="Arial,10",command=lambda:feedNum("0")).grid(column=0,row=4)
+btndecimal=Button(frmButton,padx=10,bd=8,text=".",font="Arial,10",command=lambda:feedNum(".")).grid(column=1,row=4)
+btndivide=Button(frmButton,padx=10,bd=8,text="/",font="Arial,10",command=lambda:feedNum("/")).grid(column=2,row=4)
+btnClear=Button(frmButton,padx=10,bd=7,text="C",font="Arial,10",command=clearOutput).grid(column=3,row=4)
+
+btnequal=Button(frmButton,padx=10,bd=8,text="=",width=20,font="Arial,10",command=btnEqual).grid(columnspan=4,row=5)
+
+
+#---------------calling center function to set window to center position
+center(Calc)
+
+
+#----------window size and show command
+Calc.geometry("230x280")
+Calc.mainloop()
